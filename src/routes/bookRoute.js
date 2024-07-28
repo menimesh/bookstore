@@ -28,4 +28,6 @@ router.post("/add", upload.single("image"),(req,res)=>{
 router.get("/:id",bookController.getBookById);
 router.post("/update/:id",bookController.updateBook);
 router.post("/delete/:id",bookController.deleteBook);
+router.get("/search/all",bookController.searchBook);
+router.get("/",bookController.getBooks);
 export default router;

@@ -1,4 +1,5 @@
 import bookModel from "../models/bookModel.js";
+import {Op} from "sequelize";
 
 export default class BookController{
     async addBook(req, res,imageName)  {
@@ -85,6 +86,45 @@ export default class BookController{
             console.log(error);
         }
        
+     }
+    async searchBook(req,res){
+        const {q}=req.query;
+        if(q){
+            const data=await bookModel.findAll({
+                where:{
+                    [Op.or]:{
+                        name:{
+                            [Op.like]:`%${q}`,
+                        },
+                        author:{
+                            [Op.like]:`%${q}`,
+                        },
+                    },
+                },
+            });
+            if(data){
+                console.log(data);
+                res.json(data);
+            }
+            else{
+             res.json({success:false,message:"not in database"})
+            }
+            
+        }
+    else{
+     res.json({success:false,message:"query not provided"})
+    }
+     }
+
+     async getBooks(req,res){
+        let {limit}=req.query;
+        if(!limit){
+            limit=20;
+          const data=await bookModel.findAll({
+                limit,
+            })
+            res.json(data);
+        }
      }
     }
  
