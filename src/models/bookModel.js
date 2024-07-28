@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
-import connetion from "./index.js";
-export default connetion.define("books",{
+import connection from "./index.js";
+export default connection.define("books",{
     id:{
         type:DataTypes.INTEGER,
         primaryKey:true,
