@@ -2,9 +2,11 @@ import express from "express";
 import connection from "./models/index.js"
 import bookRoute from "./routes/bookRoute.js"
 import 'dotenv/config';
+import cors from "cors";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+app.use(cors());
 
 app.get("/",(req,res)=>{
    res.send("backend is working");
